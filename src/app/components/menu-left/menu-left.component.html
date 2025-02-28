@@ -1,0 +1,112 @@
+<div [class]="isCollapsed?'menu-content':'menu-content-full'">
+  <div class="wrapper">
+    <ul nz-menu nzMode="inline" nzTheme="dark" [nzInlineCollapsed]="isCollapsed" >
+      <button style="width: 100%;" nz-button nzType="primary" (click)="toggleCollapsed()">
+        <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+      </button>
+      <li nz-submenu nzTitle="ApiRest" nz-tooltip nzTooltipPlacement="right" [nzOpen]="true"
+        [nzTooltipTitle]="isCollapsed ? 'ApiRest' : ''" nzIcon="api" nzSelected>
+        <ng-container [ngTemplateOutlet]="api_rest"
+          [ngTemplateOutletContext]="{data: documentation[0].api_rest_docs}"></ng-container>
+      </li>
+      <li nz-submenu nzTitle="Websocket" nz-tooltip nzTooltipPlacement="right" [nzOpen]="true"
+        [nzTooltipTitle]="isCollapsed ? 'Websocket' : ''" nzIcon="deployment-unit" nzSelected>
+        <ng-container [ngTemplateOutlet]="websocket"
+          [ngTemplateOutletContext]="{data: documentation[0].websocket_docs}" ></ng-container>
+      </li>
+      <li nz-submenu nzTitle="Mqtt" nz-tooltip nzTooltipPlacement="right" [nzOpen]="true"
+        [nzTooltipTitle]="isCollapsed ? 'Mqtt' : ''" nzIcon="branches" nzSelected>
+        <ng-container [ngTemplateOutlet]="mqtt_pubsub"
+          [ngTemplateOutletContext]="{data: documentation[0].mqtt_docs}" ></ng-container>
+      </li>
+      <ng-template #api_rest let-data="data">
+        <ul *ngFor="let api of data; let index='index'">
+          <li nz-menu-item *ngIf="api.endpoints.length === 0"><ng-template #titleTpl (click)="openContent(api)">
+              <ng-container *ngTemplateOutlet="title; context:{index:1, title:api.title}"></ng-container>
+            </ng-template></li>
+          <li nz-submenu *ngIf="api.endpoints.length > 0" [nzTitle]="titleTpl" [nzOpen]="true">
+            <ng-container [ngTemplateOutlet]="api_rest_endpoints" (click)="openContent(api)"
+              [ngTemplateOutletContext]="{data: api.endpoints, input_index:1+1}"></ng-container>
+          </li>
+          <ng-template #titleTpl>
+            <ng-container *ngTemplateOutlet="title; context:{index:1, title:api.title}"></ng-container>
+          </ng-template>
+        </ul>
+      </ng-template>
+      <ng-template #api_rest_endpoints let-data="data" let-input_index="input_index">
+        <ul *ngFor="let api of data; let index='index'">
+          <li nz-menu-item *ngIf="!api.sub_endpoints || api.sub_endpoints.length === 0" (click)="openContent(api)">
+            <ng-container *ngTemplateOutlet="title; context:{index:input_index, title:api.title}"></ng-container></li>
+          <li nz-submenu *ngIf="api.sub_endpoints && api.sub_endpoints.length > 0" (click)="openContent(api)"
+            [nzTitle]="titleTpl" [nzOpen]="true">
+            <ng-template #titleTpl>
+              <ng-container *ngTemplateOutlet="title; context:{index:input_index, title:api.title}"></ng-container>
+            </ng-template>
+            <ng-container [ngTemplateOutlet]="api_rest_endpoints"
+              [ngTemplateOutletContext]="{data: api.sub_endpoints, input_index:input_index+1}"></ng-container>
+          </li>
+        </ul>
+      </ng-template>
+      <ng-template #websocket let-data="data">
+        <ul *ngFor="let api of data; let index='index'">
+          <li nz-menu-item *ngIf="api.events.length === 0"><ng-template #titleTpl (click)="openContent(api)">
+              <ng-container *ngTemplateOutlet="title; context:{index:1, title:api.title}"></ng-container>
+            </ng-template></li>
+          <li nz-submenu *ngIf="api.events.length > 0" [nzTitle]="titleTpl" [nzOpen]="true">
+            <ng-container [ngTemplateOutlet]="websocket_events" (click)="openContent(api)"
+              [ngTemplateOutletContext]="{data: api.events, input_index:1+1}"></ng-container>
+          </li>
+          <ng-template #titleTpl>
+            <ng-container *ngTemplateOutlet="title; context:{index:1, title:api.title}"></ng-container>
+          </ng-template>
+        </ul>
+      </ng-template>
+      <ng-template #websocket_events let-data="data" let-input_index="input_index">
+        <ul *ngFor="let api of data; let index='index'">
+          <li nz-menu-item *ngIf="!api.sub_events || api.sub_events.length === 0" (click)="openContent(api)">
+            <ng-container *ngTemplateOutlet="title; context:{index:input_index, title:api.title}"></ng-container></li>
+          <li nz-submenu *ngIf="api.sub_events && api.sub_events.length > 0" (click)="openContent(api)"
+            [nzTitle]="titleTpl" [nzOpen]="true">
+            <ng-template #titleTpl>
+              <ng-container *ngTemplateOutlet="title; context:{index:input_index, title:api.title}"></ng-container>
+            </ng-template>
+            <ng-container [ngTemplateOutlet]="websocket_events"
+              [ngTemplateOutletContext]="{data: api.sub_events, input_index:input_index+1}"></ng-container>
+          </li>
+        </ul>
+      </ng-template>
+      <ng-template #mqtt_pubsub let-data="data">
+        <ul *ngFor="let api of data; let index='index'">
+          <li nz-menu-item *ngIf="api.pubsub.length === 0"><ng-template #titleTpl (click)="openContent(api)">
+              <ng-container *ngTemplateOutlet="title; context:{index:1, title:api.title}"></ng-container>
+            </ng-template></li>
+          <li nz-submenu *ngIf="api.pubsub.length > 0" [nzTitle]="titleTpl" [nzOpen]="true">
+            <ng-container [ngTemplateOutlet]="websocket_pubsub" (click)="openContent(api)"
+              [ngTemplateOutletContext]="{data: api.pubsub, input_index:1+1}" ></ng-container>
+          </li>
+          <ng-template #titleTpl>
+            <ng-container *ngTemplateOutlet="title; context:{index:1, title:api.title}"></ng-container>
+          </ng-template>
+        </ul>
+      </ng-template>
+      <ng-template #websocket_pubsub let-data="data" let-input_index="input_index">
+        <ul *ngFor="let api of data; let index='index'">
+          <li nz-menu-item *ngIf="!api.sub_pubsub || api.sub_pubsub.length === 0" (click)="openContent(api)">
+            <ng-container *ngTemplateOutlet="title; context:{index:input_index, title:api.title}"></ng-container></li>
+          <li nz-submenu *ngIf="api.sub_pubsub && api.sub_pubsub.length > 0" (click)="openContent(api)"
+            [nzTitle]="titleTpl" [nzOpen]="true">
+            <ng-template #titleTpl>
+              <ng-container *ngTemplateOutlet="title; context:{index:input_index, title:api.title}"></ng-container>
+            </ng-template>
+            <ng-container [ngTemplateOutlet]="websocket_pubsub"
+              [ngTemplateOutletContext]="{data: api.sub_pubsub, input_index:input_index+1}"></ng-container>
+          </li>
+        </ul>
+      </ng-template>
+    </ul>
+  </div>
+
+  <ng-template #title let-index="index" let-title="title">
+    <span [ngStyle]="{'margin-left':(index+1)*10+'px'}">{{title}}</span>
+  </ng-template>
+</div>

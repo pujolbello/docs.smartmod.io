@@ -1,0 +1,12 @@
+<div *ngIf="documentation" id="docs-container">
+    <div *ngIf="documentation.type == 'documentation'">
+        <app-title-description [title]="documentation.title"
+            [description]="documentation.description"></app-title-description>
+        <app-contents [contents]="documentation.contents"></app-contents>
+    </div>
+    <app-api-rest-docs *ngIf="documentation.type == 'api-rest'" [documentation]="documentation"></app-api-rest-docs>
+    <app-websocket-docs *ngIf="documentation.type == 'websocket'" [documentation]="documentation"></app-websocket-docs>
+    <app-mqtt-docs
+        *ngIf="documentation.type == 'mqtt' || documentation.type == 'publish' || documentation.type == 'subscribe'"
+        [documentation]="documentation"></app-mqtt-docs>
+</div>

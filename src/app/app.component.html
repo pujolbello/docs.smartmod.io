@@ -1,0 +1,68 @@
+<div id="container-home">
+  <div class="toolbar" role="banner">
+    <img width="40" alt="Angular Logo"
+      src="https://firebasestorage.googleapis.com/v0/b/smartmod-io.appspot.com/o/assets%2Fiso_logo_1024x1024.png?alt=media&token=13d994b4-7c5a-4444-b6fb-5ad659a3a255" />
+    <span>SMARTMOD DOC's</span>
+    <div class="spacer"></div>
+    <div class="card-container">
+      <a class="card" rel="noopener" [routerLink]="['/all-docs']">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+        </svg>
+        <span>Smartmod Docs</span>
+      </a>
+      <a class="card" rel="noopener" (click)="openApiDocs();">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+        </svg>
+        <span>Api docs</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container" (scroll)="onScroll($event)">
+    <router-outlet></router-outlet>
+  </div>
+
+
+
+  <footer [@expandCollapse]="show_footer ? 'show' : 'hide'">
+    <div style="width: 100%;height: 90%;padding:9px; color:rgba(117, 117, 117, 0.565);">
+      <div style=" width: 24%;text-align: center;padding: 18px; display: block;float: left;">
+        <img style="width: 50%; max-width: 50px;"
+          src="https://firebasestorage.googleapis.com/v0/b/smartmod-io.appspot.com/o/assets%2Fiso_logo_1024x1024.png?alt=media&token=13d994b4-7c5a-4444-b6fb-5ad659a3a255"
+          alt="Smartmod Logo">
+        <div style="width: 100%;">
+          <ul style="color:green">
+            <li>
+              <a href="#">
+                <i class="fab fa-facebook-f icon"></i> </a>
+            </li>
+            <li>
+              <a href="#"><i class="fab fa-twitter icon"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fab fa-linkedin-in icon"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fab fa-google-plus-g icon"></i></a>
+            </li>
+          </ul>
+        </div>
+        <div>
+        </div>
+      </div>
+      <div style="width: 24%;text-align: center;padding: 18px;">
+      </div>
+    </div>
+    <div style="width: 100%;text-align: right;position: absolute; bottom: 0;left:0;margin-top: 18px;height: 28px;">
+      <div style="display: inline-flex; padding: 6px 9px;">
+
+        <p style="color:rgba(65, 65, 65, 0.692);margin-left: 6px; margin-right: 6px; font-size: 12px;"> Powered by
+          TecnoConCiencia</p>
+        <img style="height: 16px;margin-top: -2px;" src="https://educa.tecnoconciencia.com/assets/icon/iso_logo.png"
+          alt="Tecnoconciencia Logo">
+      </div>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,114 @@
+#methods {
+    width: 100%;
+    margin-top: 18px !important;
+    margin-bottom: 18px !important;
+    margin: auto;
+    // background-color: rgb(25, 25, 25);
+    color: rgba(53, 53, 53, 0.922);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#method-title {
+    background-color: #001529;
+    padding: 6px;
+    color: gray;
+}
+
+#title-small{
+    background-color: #001529;
+    padding: 0px;
+    height: 29px;
+}
+
+#title-small p{
+     color: #dfdfdf; 
+     font-weight: 600;
+     font-size: 13px;
+}
+
+// #method-description p{
+//     width: 49%;
+//     float: right;
+// }
+
+h2 {
+    color: rgba(255, 255, 255, 0.837);
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 6px;
+    width: 100%;
+    margin-bottom: -9px;
+}
+
+p {
+    color: rgba(207, 204, 204, 0.922);
+    padding: 6px;
+    width: 100%;
+}
+
+#method-content {
+    padding: 12px;
+    // background-color: rgb(25, 25, 25);
+}
+
+.method-type{
+    padding: 1px;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    margin: 3px;
+    font-weight: 900;
+    text-align: center;
+    width: 100px;
+    float: right;
+}
+
+#endpoint{
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 17px;
+    display: flow-root;
+    text-align: right;
+}
+
+.status-code{
+    padding: 1px;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    margin: 2px;
+    font-weight: 900;
+    text-align: center;
+    width: 55px;
+    float: left;
+    cursor:pointer;
+}
+
+#POST{
+    background-color: rgb(1, 58, 157);
+}
+#GET{
+    background-color: rgb(2, 163, 80);
+}
+#PUT{
+    background-color: rgb(205, 185, 2);
+}
+#DELETE{
+    background-color: rgb(144, 23, 23);
+}
+
+#user-auth{
+    text-align: right;
+    padding: 3px;
+}
+
+#response{
+    width: 100%;
+    display:flow-root;
+}
+
+#response-title{
+    padding-top: 6px;
+    color: rgb(99, 98, 98) ;
+}

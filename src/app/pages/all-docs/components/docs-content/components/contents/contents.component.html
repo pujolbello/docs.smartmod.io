@@ -1,0 +1,7 @@
+<div *ngFor="let content of contents">
+    <div *ngIf="content.type === 'html'">
+        <div [innerHTML]="content.content"></div>
+    </div>
+</div>
+
+

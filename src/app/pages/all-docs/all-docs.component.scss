@@ -1,0 +1,74 @@
+
+// #docs-container {
+//     color: gray;
+//     // padding: 48px 48px 188px 48px;
+//     min-height: 100vh;
+//     width: 100%;
+//     background-color: white;
+//     display: flex;
+//     flex-direction: row; /* Change to row to place children side by side */
+// }
+
+#docs-content {
+    flex-grow: 1; /* Allow docs-content to take up remaining space */
+    padding: 20px;
+    background-color: #ffffff; /* Set a default background color */
+    transition: margin-left 0.3s; /* Smooth transition for expanding/collapsing menu */
+    // width: 100%;
+}
+
+#docs-container {
+    color: gray;
+    // padding: 0px 0px 188px 0px;
+    min-height: 89vh;
+    // width: 100%;
+    background-color: white;
+    display: flex;
+    // flex-direction: column;
+}
+
+#left-menu {
+
+}
+
+// #left-menu {
+//     // position: relative;
+//     top: 75px;
+//     left: 0;
+//     // max-width: 33vh;
+//     //height: calc(100% - 75px); /* Adjust height to be the full height minus the top offset */
+//     // width: 250px; /* Set a fixed width for the menu */
+// }
+
+
+#docs-content {
+    // margin-left: 50px; /* Adjust this value based on the width of the #left-menu when expanded */
+    // padding: 20px;
+
+    // top: 75px;
+    background-color: #ffffff; /* Set a default background color */
+    transition: margin-left 0.3s; /* Smooth transition for expanding/collapsing menu */
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    color: rgba(231, 231, 231, 0.854);
+}
+
+h2 {
+    color: rgba(203, 202, 202, 0.854);
+}
+
+h3{
+    color: rgba(171, 169, 169, 0.782);
+}
+
+// p{
+//     color: rgba(157, 184, 117, 0.817);
+// }
+
+#error{
+    margin-top: 49px;
+color: white;
+}

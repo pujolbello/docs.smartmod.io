@@ -1,0 +1,88 @@
+<div *ngIf="endpoints">
+    <app-title-description [title]="endpoints.title" [description]="endpoints.description"></app-title-description>
+    <app-contents [contents]="endpoints.contents"></app-contents>
+    <div *ngFor="let method of endpoints.methods">
+        <ng-container
+            *ngTemplateOutlet="methods; context: {method: method, endpoint:endpoints.endpoint}"></ng-container>
+    </div>
+    <app-endpoints *ngFor="let endpoint of endpoints.sub_endpoints;" [endpoints]="endpoint"></app-endpoints>
+</div>
+
+<ng-template #methods let-method="method" let-endpoint="endpoint">
+    <div id="methods">
+        <div id="method-title" nz-row>
+            <div nz-col nzSpan="12">
+                <h2>{{method.title}}</h2>
+                <p>{{method.description}}</p>
+            </div>
+            <div nz-col nzSpan="12">
+                <div id="endpoint">
+                    <div style="text-align: right;">{{endpoint}}</div>
+                    <div [id]="method.method" class="method-type">{{method.method}}</div>
+                </div>
+                <div id="user-auth">
+                    User Type: {{method.user_type}} <br>
+                    Authentication: {{method.auth_method}}
+                </div>
+
+            </div>
+        </div>
+        <div>
+        </div>
+        <div id="method-content">
+            <!-- {{method|json}} -->
+            <!-- <ng-container *ngTemplateOutlet="responses; context: {method: method}"></ng-container> -->
+            <div style="width: 100%;">
+                <app-contents [contents]="method.contents"></app-contents>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="12">
+                    <div *ngIf="isObjectNotEmpty(method.parameters)" id="parameters">
+                        <div id="title-small">
+                            <p>Path parameters</p>
+                        </div>
+                        <app-object [object]="method.parameters"></app-object>
+                    </div>
+                    <div *ngIf="isObjectNotEmpty(method.body)" id="body">
+                        <div id="title-small">
+                            <p>Payload</p>
+                        </div>
+                        <app-object [object]="method.body"></app-object>
+                    </div>
+                </div>
+                <div nz-col nzSpan="12">
+                    <div id="title-small">
+                        <p>Responses</p>
+                    </div>
+
+
+                    <ng-container *ngTemplateOutlet="responses; context: {responses: method.responses}"></ng-container>
+                    <!-- <app-object [object]="method.parameters"></app-object> -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #responses let-responses="responses">
+    <div *ngFor="let response of responses; let i ='index'">
+        <div [id]="response.status<400?'GET':'DELETE'" (click)="selectResponse(i, response)" class="status-code"
+            [nzTooltipTitle]="response.description" nzTooltipPlacement="bottom" nz-button nz-tooltip>{{response.status}}
+        </div>
+    </div>
+
+    <div *ngFor="let response of responses; let i ='index'">
+        <div *ngIf="(selectedResponse && selectedResponse.index == i && selectedResponse.response.description == response.description) || (!selectedResponse && (response.status == 200 || response.status == 201))"
+            id="response">
+            <div id="response-title">
+                <h4>{{response.description}}</h4>
+            </div>
+            <div id="response-content">
+                <app-object *ngIf="isObjectNotEmpty(response.body)" [object]="response.body"></app-object>
+            </div>
+        </div>
+    </div>
+
+</ng-template>

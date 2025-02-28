@@ -1,0 +1,74 @@
+<div *ngIf="documentation">
+    <app-title-description [title]="documentation.title"
+        [description]="documentation.description"></app-title-description>
+    <app-contents [contents]="documentation.contents"></app-contents>
+    <ng-container [ngTemplateOutlet]="event_temp"
+        [ngTemplateOutletContext]="{event: documentation, path:documentation.event}"></ng-container>
+</div>
+
+<ng-template #event_temp let-event="event" let-path="path">
+    <!-- {{event|json}} -->
+    <div id="methods">
+        <div id="method-title" nz-row>
+            <div nz-col nzSpan="12">
+                <h2>{{event.title}}</h2>
+                <p>{{event.description}}</p>
+            </div>
+            <div nz-col nzSpan="12">
+                <div id="endpoint">
+                    <div style="text-align: right;">{{path}}</div>
+                    <!-- <div [id]="method.method" class="method-type">{{method.method}}</div> -->
+                </div>
+                <div id="user-auth">
+                    User Type: {{event.user_type}} <br>
+                    Authentication: {{event.auth_method}}
+                </div>
+
+            </div>
+        </div>
+        <div>
+        </div>
+        <div id="method-content">
+            <!-- {{method|json}} -->
+            <!-- <ng-container *ngTemplateOutlet="responses; context: {method: method}"></ng-container> -->
+            <div style="width: 100%;">
+                <app-contents [contents]="event.contents"></app-contents>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="12">
+                    <div *ngIf="isObjectNotEmpty(event.data_request)" id="body">
+                        <div id="title-small">
+                            <p>Data request</p>
+                        </div>
+                        <app-object [object]="event.data_request"></app-object>
+                    </div>
+                    <div *ngIf="isObjectNotEmpty(event.errors)" id="parameters">
+                        <div id="title-small">
+                            <p>Errors</p>
+                        </div>
+                        <div style="padding-top: 6px;" *ngFor="let error of event.errors">
+                            <h4>{{error.description}}</h4>
+                            <app-object [object]="{error:error.error}"></app-object>
+                        </div>
+                    </div>
+                </div>
+                <div nz-col nzSpan="12">
+                    <div *ngIf="isObjectNotEmpty(event.data_response)" id="parameters">
+                        <div id="title-small">
+                            <p>Data response</p>
+                        </div>
+                        <app-object [object]="event.data_response"></app-object>
+                    </div>
+                </div>
+
+                <!-- <ng-container *ngTemplateOutlet="responses; context: {responses: method.responses}"></ng-container> 
+                <app-object [object]="method.parameters"></app-object> -->
+
+            </div>
+        </div>
+    </div>
+    <div *ngFor="let sub_event of event.sub_events">
+        <ng-container [ngTemplateOutlet]="event_temp"
+            [ngTemplateOutletContext]="{event: sub_event, path:sub_event.event}"></ng-container>
+    </div>
+</ng-template>
